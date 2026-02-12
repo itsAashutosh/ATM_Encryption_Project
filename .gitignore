@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+.env/
+.env.*
+
+# Mac
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Secrets
+*.key
+*.pem
+*.env
