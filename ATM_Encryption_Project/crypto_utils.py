@@ -229,6 +229,49 @@ class ATMCryptoUtils:
         return serialization.load_pem_public_key(pem_data, backend=default_backend())
     
     @staticmethod
+    def save_key_to_file(key, filename, is_private=False, password=None):
+        """
+        Save an RSA key to a file.
+        
+        Args:
+            key: RSA key object (private or public)
+            filename (str): Path to save the key
+            is_private (bool): True if saving a private key
+            password (bytes, optional): Password for private key encryption
+        """
+        if is_private:
+            pem_data = ATMCryptoUtils.serialize_private_key(key, password)
+        else:
+            pem_data = ATMCryptoUtils.serialize_public_key(key)
+            
+        with open(filename, 'wb') as f:
+            f.write(pem_data)
+            
+    @staticmethod
+    def load_key_from_file(filename, is_private=False, password=None):
+        """
+        Load an RSA key from a file.
+        
+        Args:
+            filename (str): Path to the key file
+            is_private (bool): True if loading a private key
+            password (bytes, optional): Password if private key is encrypted
+            
+        Returns:
+            RSA key object or None if file doesn't exist
+        """
+        if not os.path.exists(filename):
+            return None
+            
+        with open(filename, 'rb') as f:
+            pem_data = f.read()
+            
+        if is_private:
+            return ATMCryptoUtils.deserialize_private_key(pem_data, password)
+        else:
+            return ATMCryptoUtils.deserialize_public_key(pem_data)
+
+    @staticmethod
     def deserialize_private_key(pem_data, password=None):
         """
         Deserialize RSA private key from PEM format.
@@ -245,6 +288,55 @@ class ATMCryptoUtils:
             password=password,
             backend=default_backend()
         )
+
+    @staticmethod
+    def sign_data(data, private_key):
+        """
+        Sign data using RSA-2048 private key (SHA-256).
+        
+        Args:
+            data (bytes): Data to sign
+            private_key: RSA private key object
+            
+        Returns:
+            bytes: Digital signature
+        """
+        signature = private_key.sign(
+            data,
+            rsa_padding.PSS(
+                mgf=rsa_padding.MGF1(hashes.SHA256()),
+                salt_length=rsa_padding.PSS.MAX_LENGTH
+            ),
+            hashes.SHA256()
+        )
+        return signature
+
+    @staticmethod
+    def verify_signature(data, signature, public_key):
+        """
+        Verify a digital signature using RSA-2048 public key.
+        
+        Args:
+            data (bytes): Original data
+            signature (bytes): Signature to verify
+            public_key: RSA public key object
+            
+        Returns:
+            bool: True if valid, False otherwise
+        """
+        try:
+            public_key.verify(
+                signature,
+                data,
+                rsa_padding.PSS(
+                    mgf=rsa_padding.MGF1(hashes.SHA256()),
+                    salt_length=rsa_padding.PSS.MAX_LENGTH
+                ),
+                hashes.SHA256()
+            )
+            return True
+        except Exception:
+            return False
     
     @staticmethod
     def hybrid_encrypt(data, bank_public_key):
