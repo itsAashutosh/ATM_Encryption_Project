@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM-Bank Secure Communication</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -45,7 +46,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
             pointer-events: none;
@@ -58,7 +59,7 @@
             background: var(--bg-secondary);
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 
+            box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.8),
                 0 0 0 1px var(--border-color),
                 inset 0 1px 0 rgba(255, 255, 255, 0.03);
@@ -72,6 +73,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -111,6 +113,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -121,6 +124,7 @@
             from {
                 width: 0;
             }
+
             to {
                 width: 100px;
             }
@@ -151,6 +155,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -272,6 +277,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -286,7 +292,7 @@
             border-color: var(--accent-success);
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
             color: var(--text-primary);
-            box-shadow: 
+            box-shadow:
                 0 0 20px rgba(16, 185, 129, 0.2),
                 inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
@@ -295,7 +301,7 @@
             border-color: var(--accent-error);
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
             color: var(--text-primary);
-            box-shadow: 
+            box-shadow:
                 0 0 20px rgba(239, 68, 68, 0.2),
                 inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
@@ -315,7 +321,7 @@
             display: inline-block;
             width: 16px;
             height: 16px;
-            border: 3px solid rgba(255,255,255,.2);
+            border: 3px solid rgba(255, 255, 255, .2);
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 0.8s linear infinite;
@@ -324,7 +330,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .status {
@@ -340,9 +348,12 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0.6;
             }
@@ -389,7 +400,7 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
+
             .container {
                 padding: 25px;
             }
@@ -397,9 +408,12 @@
 
         /* Glowing effect for active elements */
         @keyframes glow {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 0 5px var(--glow-color);
             }
+
             50% {
                 box-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
             }
@@ -626,9 +640,435 @@
             color: var(--accent-primary);
             margin-right: 8px;
         }
+
+        /* Transaction Table */
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .transaction-table th {
+            text-align: left;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .transaction-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .transaction-table tr:hover td {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-success);
+        }
+
+        .status-pending {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent-primary);
+        }
+
+        /* System Log Console */
+        .system-log-container {
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: #000;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .system-log-header {
+            background: var(--bg-tertiary);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .system-log-content {
+            height: 200px;
+            overflow-y: auto;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #33ff00;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .log-time {
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .log-info {
+            color: #33ccff;
+        }
+
+        .log-success {
+            color: #33ff00;
+        }
+
+        .log-warning {
+            color: #ffcc00;
+        }
+
+        .log-error {
+            color: #ff3333;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-primary);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            min-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .toast.success {
+            border-left-color: var(--accent-success);
+        }
+
+        .toast.error {
+            border-left-color: var(--accent-error);
+        }
+
+        .toast.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .toast-icon {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .toast-content {
+            font-size: 14px;
+        }
+
+        .toast-close {
+            margin-left: auto;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        .toast-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Step Tracker */
+        .step-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .step-tracker::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 0;
+        }
+
+        .step-progress {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            z-index: 0;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-circle {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .step.completed .step-circle {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--text-primary);
+        }
+
+        /* Tooltips */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--accent-primary);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        [data-tooltip]:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+        }
+
+        .network-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-primary);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.4);
+            text-align: center;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .server-icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .server-node {
+            background: var(--bg-tertiary);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 2;
+        }
+
+        .server-node.active {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .network-line {
+            flex-grow: 1;
+            height: 2px;
+            background: var(--border-color);
+            position: relative;
+            margin: 0 20px;
+        }
+
+        .packet-animation {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 0 20px var(--accent-primary);
+            z-index: 3;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 25px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .modal-status {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+
+        .copy-small-btn {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0;
+            width: auto;
+            box-shadow: none;
+        }
+
+        .copy-small-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .copy-small-btn::before {
+            display: none;
+        }
     </style>
 </head>
+
 <body>
+    <div id="toastContainer" class="toast-container"></div>
     <div class="container">
         <h1>ATM–Bank Secure Communication</h1>
 
@@ -659,12 +1099,12 @@
             </div>
 
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card" data-tooltip="Symmetric encryption for speed">
                     <h3>Encryption Algorithm</h3>
                     <div class="stat-value">AES-256</div>
                     <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">CBC Mode</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" data-tooltip="Asymmetric encryption for secure key exchange">
                     <h3>Key Exchange</h3>
                     <div class="stat-value">RSA-2048</div>
                     <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">OAEP Padding</p>
@@ -697,38 +1137,70 @@
             </div>
         </div>
 
-        <!-- Encryption Page -->
-        <div id="encryption" class="page">
-            <div class="page-header">
-                <h2>Transaction Encryption</h2>
-                <p>Encrypt ATM transaction data using hybrid encryption (AES-256-CBC + RSA-2048)</p>
+        <div class="section">
+            <h2>Recent Transactions</h2>
+            <div style="overflow-x: auto;">
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+                <div id="noTransactions" class="info-text" style="text-align: center; margin-top: 15px;">
+                    No recent transactions found. Start by encrypting a transaction!
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="section">
-                <h2>ATM Transaction Data</h2>
+    <!-- Encryption Page -->
+    <div id="encryption" class="page">
+        <div class="page-header">
+            <h2>Transaction Encryption</h2>
+            <p>Encrypt ATM transaction data using hybrid encryption (AES-256-CBC + RSA-2048)</p>
+        </div>
+
+        <div class="step-tracker">
+            <div class="step-progress" id="stepProgress"></div>
+            <div class="step active" id="step1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Input</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Encrypt</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Transmit</div>
+            </div>
+            <div class="step" id="step4">
+                <div class="step-circle">4</div>
+                <div class="step-label">Decrypt</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ATM Transaction Data</h2>
             <form id="transactionForm" onsubmit="handleSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="account_number">Account Number:</label>
-                        <input 
-                            type="text" 
-                            id="account_number" 
-                            name="account_number" 
-                            placeholder="123456789"
-                            required
-                        >
+                        <label for="account_number" data-tooltip="Any 9-digit number for simulation">Account
+                            Number:</label>
+                        <input type="text" id="account_number" name="account_number" placeholder="123456789" required>
                     </div>
                     <div class="form-group">
-                        <label for="amount">Amount ($):</label>
-                        <input 
-                            type="number" 
-                            id="amount" 
-                            name="amount" 
-                            placeholder="100.00"
-                            step="0.01"
-                            min="0"
-                            required
-                        >
+                        <label for="amount" data-tooltip="Transaction value in USD">Amount ($):</label>
+                        <input type="number" id="amount" name="amount" placeholder="100.00" step="0.01" min="0"
+                            required>
                     </div>
                 </div>
 
@@ -745,25 +1217,22 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="pin">PIN (optional):</label>
-                        <input 
-                            type="text" 
-                            id="pin" 
-                            name="pin" 
-                            placeholder="****"
-                            maxlength="4"
-                        >
+                        <label for="pin" data-tooltip="4-digit personal identification number">PIN (optional):</label>
+                        <div style="position: relative;">
+                            <input type="password" id="pin" name="pin" placeholder="****" maxlength="4"
+                                style="padding-right: 40px;">
+                            <button type="button" onclick="togglePinVisibility()"
+                                style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 5px; width: auto; box-shadow: none; margin: 0;">
+                                👁️
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="additional_info">Additional Information (optional):</label>
-                    <textarea 
-                        id="additional_info" 
-                        name="additional_info" 
-                        placeholder="Any additional transaction details..."
-                        rows="3"
-                    ></textarea>
+                    <textarea id="additional_info" name="additional_info"
+                        placeholder="Any additional transaction details..." rows="3"></textarea>
                 </div>
 
                 <div class="input-toggle" onclick="toggleRawInput()">
@@ -772,42 +1241,49 @@
 
                 <div id="rawInputSection" style="display: none;" class="form-group full-width">
                     <label for="transaction_data">Raw Transaction Data:</label>
-                    <textarea 
-                        id="transaction_data" 
-                        name="transaction_data" 
-                        placeholder="Account: 123456789, Amount: $100, Type: Withdrawal, Timestamp: 2024-01-15 10:30:00"
-                    ></textarea>
+                    <textarea id="transaction_data" name="transaction_data"
+                        placeholder="Account: 123456789, Amount: $100, Type: Withdrawal, Timestamp: 2024-01-15 10:30:00"></textarea>
                 </div>
 
                 <div class="info-text">
-                    Transaction data will be encrypted using AES-256-CBC. The AES session key will be encrypted with RSA-2048.
+                    Transaction data will be encrypted using AES-256-CBC. The AES session key will be encrypted with
+                    RSA-2048.
                 </div>
                 <button type="submit" id="submitBtn">Submit Transaction</button>
             </form>
         </div>
 
-            <div class="section">
-                <h2>Encrypted Data</h2>
+        <div class="section">
+            <h2>Encrypted Data</h2>
             <div id="encryptedDataSection" style="display: none;">
                 <div class="encrypted-item">
-                    <label class="encrypted-label">
-                        Encrypted Transaction Data (AES-256-CBC):
-                        <span id="encrypted_data_length" class="data-length"></span>
-                    </label>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="encrypted-label">Encrypted Transaction Data (AES-256-CBC) <span
+                                id="encrypted_data_length" class="data-length"></span></span>
+                        <button type="button" class="copy-small-btn"
+                            onclick="copyToClipboard(document.getElementById('encrypted_data_display').textContent)">Copy</button>
+                    </div>
                     <div id="encrypted_data_display" class="encrypted-value"></div>
                 </div>
                 <div class="encrypted-item">
-                    <label class="encrypted-label">
-                        Encrypted Session Key (RSA-2048):
-                        <span id="encrypted_key_length" class="data-length"></span>
-                    </label>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="encrypted-label">Encrypted Session Key (RSA-2048) <span id="encrypted_key_length"
+                                class="data-length"></span></span>
+                        <button type="button" class="copy-small-btn"
+                            onclick="copyToClipboard(document.getElementById('encrypted_key_display').textContent)">Copy</button>
+                    </div>
                     <div id="encrypted_key_display" class="encrypted-value"></div>
                 </div>
                 <div class="encrypted-item">
-                    <label class="encrypted-label">
-                        Initialization Vector (IV):
-                        <span id="iv_length" class="data-length"></span>
-                    </label>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="encrypted-label">Initialization Vector (IV) <span id="iv_length"
+                                class="data-length"></span></span>
+                        <button type="button" class="copy-small-btn"
+                            onclick="copyToClipboard(document.getElementById('iv_display').textContent)">Copy</button>
+                    </div>
                     <div id="iv_display" class="encrypted-value"></div>
                 </div>
             </div>
@@ -816,529 +1292,858 @@
             </div>
         </div>
 
-            <div class="section">
-                <h2>Bank Decrypted Message</h2>
-                <div id="result" class="result-box"></div>
-                <div id="status" class="status"></div>
+        <div class="section">
+            <h2>Bank Decrypted Message</h2>
+            <div id="result" class="result-box"></div>
+            <div id="status" class="status"></div>
+        </div>
+    </div>
+
+    <!-- Decryption Page -->
+    <div id="decryption" class="page">
+        <div class="page-header">
+            <h2>Message Decryption</h2>
+            <p>Decrypt encrypted transaction data using RSA private key and AES session key</p>
+        </div>
+
+        <div class="section">
+            <h2>Encrypted Package</h2>
+            <form id="decryptForm" onsubmit="handleDecryptSubmit(event)">
+                <div class="form-group">
+                    <label for="decrypt_encrypted_data">Encrypted Data (Base64):</label>
+                    <textarea id="decrypt_encrypted_data" name="decrypt_encrypted_data"
+                        placeholder="Paste encrypted transaction data here..." rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="decrypt_session_key">Encrypted Session Key (Base64):</label>
+                    <textarea id="decrypt_session_key" name="decrypt_session_key"
+                        placeholder="Paste encrypted AES session key here..." rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="decrypt_iv">Initialization Vector (Base64):</label>
+                    <input type="text" id="decrypt_iv" name="decrypt_iv" placeholder="Paste IV here..." required>
+                </div>
+                <button type="submit" id="decryptBtn">Decrypt Message</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="margin: 0; border: none; padding: 0;">Decrypted Result</h2>
+                <button type="button" class="copy-small-btn"
+                    onclick="copyToClipboard(document.getElementById('decrypt_result').textContent)">Copy
+                    Result</button>
+            </div>
+            <div id="decrypt_result" class="result-box"></div>
+            <div id="decrypt_status" class="status"></div>
+        </div>
+    </div>
+
+    <!-- Key Management Page -->
+    <div id="keys" class="page">
+        <div class="page-header">
+            <h2>Key Management</h2>
+            <p>View and manage RSA-2048 key pairs for secure communication</p>
+        </div>
+
+        <div class="section">
+            <h2>Bank's Public Key (RSA-2048)</h2>
+            <div class="info-text">
+                This public key is used by ATMs to encrypt AES session keys. It can be shared publicly.
+            </div>
+            <div class="encrypted-value" style="max-height: 200px; margin-top: 15px;">
+                {{ bank_public_key }}
+            </div>
+            <button onclick="copyToClipboard('{{ bank_public_key }}')"
+                style="margin-top: 15px; width: auto; padding: 10px 20px;">
+                📋 Copy Public Key
+            </button>
+        </div>
+
+        <div class="section">
+            <h2>Key Information</h2>
+            <div class="info-card">
+                <h3>RSA-2048 Key Pair</h3>
+                <ul>
+                    <li><strong>Algorithm:</strong> RSA (Rivest-Shamir-Adleman)</li>
+                    <li><strong>Key Size:</strong> 2048 bits</li>
+                    <li><strong>Public Exponent:</strong> 65537</li>
+                    <li><strong>Padding:</strong> OAEP with SHA-256</li>
+                    <li><strong>Usage:</strong> Encrypt AES session keys</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Security Notes</h3>
+                <ul>
+                    <li>The private key is stored securely on the bank's server</li>
+                    <li>Never share the private key publicly</li>
+                    <li>Public key can be distributed to all ATMs</li>
+                    <li>Keys are generated per session for this demonstration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="page-header">
+            <h2>About This System</h2>
+            <p>End-to-End Encryption for ATM-Bank Communication Over Untrusted Networks</p>
+        </div>
+
+        <div class="section">
+            <h2>Project Overview</h2>
+            <div class="info-card">
+                <h3>Purpose</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    This system implements a secure communication protocol for ATM-Bank transactions using
+                    hybrid encryption. It ensures that sensitive transaction data remains confidential even
+                    when transmitted over untrusted networks.
+                </p>
             </div>
         </div>
 
-        <!-- Decryption Page -->
-        <div id="decryption" class="page">
-            <div class="page-header">
-                <h2>Message Decryption</h2>
-                <p>Decrypt encrypted transaction data using RSA private key and AES session key</p>
+        <div class="section">
+            <h2>Technical Architecture</h2>
+            <div class="info-card">
+                <h3>Encryption Process</h3>
+                <ul>
+                    <li><strong>Step 1:</strong> Generate random AES-256 session key</li>
+                    <li><strong>Step 2:</strong> Encrypt transaction data with AES-256-CBC</li>
+                    <li><strong>Step 3:</strong> Encrypt AES session key with RSA-2048 (bank's public key)</li>
+                    <li><strong>Step 4:</strong> Transmit encrypted package (data + key + IV)</li>
+                </ul>
             </div>
 
-            <div class="section">
-                <h2>Encrypted Package</h2>
-                <form id="decryptForm" onsubmit="handleDecryptSubmit(event)">
-                    <div class="form-group">
-                        <label for="decrypt_encrypted_data">Encrypted Data (Base64):</label>
-                        <textarea 
-                            id="decrypt_encrypted_data" 
-                            name="decrypt_encrypted_data" 
-                            placeholder="Paste encrypted transaction data here..."
-                            rows="4"
-                            required
-                        ></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="decrypt_session_key">Encrypted Session Key (Base64):</label>
-                        <textarea 
-                            id="decrypt_session_key" 
-                            name="decrypt_session_key" 
-                            placeholder="Paste encrypted AES session key here..."
-                            rows="3"
-                            required
-                        ></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="decrypt_iv">Initialization Vector (Base64):</label>
-                        <input 
-                            type="text" 
-                            id="decrypt_iv" 
-                            name="decrypt_iv" 
-                            placeholder="Paste IV here..."
-                            required
-                        >
-                    </div>
-                    <button type="submit" id="decryptBtn">Decrypt Message</button>
-                </form>
-            </div>
-
-            <div class="section">
-                <h2>Decrypted Result</h2>
-                <div id="decrypt_result" class="result-box"></div>
-                <div id="decrypt_status" class="status"></div>
+            <div class="info-card">
+                <h3>Decryption Process</h3>
+                <ul>
+                    <li><strong>Step 1:</strong> Receive encrypted package</li>
+                    <li><strong>Step 2:</strong> Decrypt AES session key using RSA private key</li>
+                    <li><strong>Step 3:</strong> Decrypt transaction data using AES-256-CBC</li>
+                    <li><strong>Step 4:</strong> Process decrypted transaction</li>
+                </ul>
             </div>
         </div>
 
-        <!-- Key Management Page -->
-        <div id="keys" class="page">
-            <div class="page-header">
-                <h2>Key Management</h2>
-                <p>View and manage RSA-2048 key pairs for secure communication</p>
-            </div>
-
-            <div class="section">
-                <h2>Bank's Public Key (RSA-2048)</h2>
-                <div class="info-text">
-                    This public key is used by ATMs to encrypt AES session keys. It can be shared publicly.
+        <div class="section">
+            <h2>Cryptographic Components</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>AES-256-CBC</h3>
+                    <div class="stat-value">Symmetric</div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
+                        Fast data encryption<br>
+                        256-bit key strength
+                    </p>
                 </div>
-                <div class="encrypted-value" style="max-height: 200px; margin-top: 15px;">
-                    {{ bank_public_key }}
+                <div class="stat-card">
+                    <h3>RSA-2048</h3>
+                    <div class="stat-value">Asymmetric</div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
+                        Secure key exchange<br>
+                        2048-bit key strength
+                    </p>
                 </div>
-                <button onclick="copyToClipboard('{{ bank_public_key }}')" style="margin-top: 15px; width: auto; padding: 10px 20px;">
-                    📋 Copy Public Key
-                </button>
-            </div>
-
-            <div class="section">
-                <h2>Key Information</h2>
-                <div class="info-card">
-                    <h3>RSA-2048 Key Pair</h3>
-                    <ul>
-                        <li><strong>Algorithm:</strong> RSA (Rivest-Shamir-Adleman)</li>
-                        <li><strong>Key Size:</strong> 2048 bits</li>
-                        <li><strong>Public Exponent:</strong> 65537</li>
-                        <li><strong>Padding:</strong> OAEP with SHA-256</li>
-                        <li><strong>Usage:</strong> Encrypt AES session keys</li>
-                    </ul>
-                </div>
-
-                <div class="info-card">
-                    <h3>Security Notes</h3>
-                    <ul>
-                        <li>The private key is stored securely on the bank's server</li>
-                        <li>Never share the private key publicly</li>
-                        <li>Public key can be distributed to all ATMs</li>
-                        <li>Keys are generated per session for this demonstration</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- About Page -->
-        <div id="about" class="page">
-            <div class="page-header">
-                <h2>About This System</h2>
-                <p>End-to-End Encryption for ATM-Bank Communication Over Untrusted Networks</p>
-            </div>
-
-            <div class="section">
-                <h2>Project Overview</h2>
-                <div class="info-card">
-                    <h3>Purpose</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        This system implements a secure communication protocol for ATM-Bank transactions using 
-                        hybrid encryption. It ensures that sensitive transaction data remains confidential even 
-                        when transmitted over untrusted networks.
+                <div class="stat-card">
+                    <h3>Hybrid</h3>
+                    <div class="stat-value">Best of Both</div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
+                        Combines speed & security<br>
+                        Industry standard
                     </p>
                 </div>
             </div>
+        </div>
 
-            <div class="section">
-                <h2>Technical Architecture</h2>
-                <div class="info-card">
-                    <h3>Encryption Process</h3>
-                    <ul>
-                        <li><strong>Step 1:</strong> Generate random AES-256 session key</li>
-                        <li><strong>Step 2:</strong> Encrypt transaction data with AES-256-CBC</li>
-                        <li><strong>Step 3:</strong> Encrypt AES session key with RSA-2048 (bank's public key)</li>
-                        <li><strong>Step 4:</strong> Transmit encrypted package (data + key + IV)</li>
-                    </ul>
-                </div>
+        <div class="section">
+            <h2>Security Features</h2>
+            <div class="info-card">
+                <ul>
+                    <li><strong>Confidentiality:</strong> Data encrypted end-to-end</li>
+                    <li><strong>Key Security:</strong> Session keys encrypted with RSA</li>
+                    <li><strong>Random IVs:</strong> Unique initialization vectors per transaction</li>
+                    <li><strong>Forward Secrecy:</strong> Each transaction uses unique session key</li>
+                    <li><strong>Strong Algorithms:</strong> AES-256 and RSA-2048</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
 
-                <div class="info-card">
-                    <h3>Decryption Process</h3>
-                    <ul>
-                        <li><strong>Step 1:</strong> Receive encrypted package</li>
-                        <li><strong>Step 2:</strong> Decrypt AES session key using RSA private key</li>
-                        <li><strong>Step 3:</strong> Decrypt transaction data using AES-256-CBC</li>
-                        <li><strong>Step 4:</strong> Process decrypted transaction</li>
-                    </ul>
-                </div>
+    <!-- System Logs -->
+    <div class="system-log-container">
+        <div class="system-log-header">
+            <span>�️ INTERCEPTED TRAFFIC (HACKER VIEW)</span>
+            <span id="connectionStatus" style="color: var(--accent-success);">● Live Capture</span>
+        </div>
+        <div id="systemLog" class="system-log-content">
+            <!-- Logs go here -->
+        </div>
+    </div>
+    </div>
+
+    <!-- Network Transmission Modal -->
+    <div id="networkModal" class="modal-overlay">
+        <div class="network-modal">
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--accent-primary);">🌐 Securing Network Transmission</h3>
             </div>
 
-            <div class="section">
-                <h2>Cryptographic Components</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>AES-256-CBC</h3>
-                        <div class="stat-value">Symmetric</div>
-                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
-                            Fast data encryption<br>
-                            256-bit key strength
-                        </p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>RSA-2048</h3>
-                        <div class="stat-value">Asymmetric</div>
-                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
-                            Secure key exchange<br>
-                            2048-bit key strength
-                        </p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Hybrid</h3>
-                        <div class="stat-value">Best of Both</div>
-                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
-                            Combines speed & security<br>
-                            Industry standard
-                        </p>
-                    </div>
+            <div class="server-icons">
+                <div class="server-node active" id="nodeATM">ATM</div>
+                <div class="network-line">
+                    <div class="packet-animation" id="packetAnim" style="display: none;">🔒</div>
                 </div>
+                <div class="server-node" id="nodeBank">BANK</div>
             </div>
 
-            <div class="section">
-                <h2>Security Features</h2>
-                <div class="info-card">
-                    <ul>
-                        <li><strong>Confidentiality:</strong> Data encrypted end-to-end</li>
-                        <li><strong>Key Security:</strong> Session keys encrypted with RSA</li>
-                        <li><strong>Random IVs:</strong> Unique initialization vectors per transaction</li>
-                        <li><strong>Forward Secrecy:</strong> Each transaction uses unique session key</li>
-                        <li><strong>Strong Algorithms:</strong> AES-256 and RSA-2048</li>
-                    </ul>
-                </div>
+            <div class="modal-status" id="modalStatus">Initializing secure handshake...</div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="modalProgress"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Page Navigation
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Remove active class from all nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Add active class to clicked nav item
-            event.target.closest('.nav-item').classList.add('active');
-        }
+        /**
+         * ATMApp Namespace
+         * Encapsulates all application logic to prevent global scope pollution
+         */
+        const ATMApp = {
+            // State
+            transactions: [],
+            logCount: 0,
 
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '✓ Copied!';
-                btn.style.background = 'linear-gradient(135deg, var(--accent-success), #059669)';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                }, 2000);
-            }).catch(err => {
-                alert('Failed to copy: ' + err);
-            });
-        }
+            // DOM Elements
+            elements: {
+                // Initialized in init()
+            },
 
-        // Decryption form handler
-        async function handleDecryptSubmit(event) {
-            event.preventDefault();
-            
-            const decryptBtn = document.getElementById('decryptBtn');
-            const resultBox = document.getElementById('decrypt_result');
-            const statusDiv = document.getElementById('decrypt_status');
-            
-            const encryptedData = document.getElementById('decrypt_encrypted_data').value.trim();
-            const encryptedSessionKey = document.getElementById('decrypt_session_key').value.trim();
-            const iv = document.getElementById('decrypt_iv').value.trim();
-            
-            if (!encryptedData || !encryptedSessionKey || !iv) {
-                resultBox.className = 'result-box error show';
-                resultBox.textContent = 'Error: Please fill in all fields.';
-                return;
-            }
+            /**
+             * Initialize the application
+             */
+            init() {
+                this.cacheElements();
+                this.setupNavigation();
+                this.setupInitialLogs();
+                this.setupEventListeners();
+                this.updateStep(1);
+                console.log('ATMApp initialized');
+                this.showToast('System Ready', 'Secure connection established', 'success');
+            },
 
-            decryptBtn.disabled = true;
-            decryptBtn.innerHTML = '<span class="loading"></span>Decrypting...';
-            decryptBtn.style.animation = 'glow 1.5s ease-in-out infinite';
-            resultBox.className = 'result-box';
-            resultBox.textContent = '';
-            statusDiv.textContent = 'Decrypting transaction data...';
-            statusDiv.style.animation = 'pulse 1.5s ease-in-out infinite';
+            /**
+             * Update the visual step tracker
+             * @param {number} step - The active step number (1-4)
+             */
+            updateStep(step) {
+                const steps = [1, 2, 3, 4];
+                const progress = document.getElementById('stepProgress');
 
-            try {
-                const response = await fetch('/decrypt', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        encrypted_data: encryptedData,
-                        encrypted_session_key: encryptedSessionKey,
-                        iv: iv
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    resultBox.className = 'result-box success show';
-                    resultBox.textContent = data.decrypted_data;
-                    statusDiv.textContent = 'Transaction decrypted successfully.';
-                } else {
-                    throw new Error(data.error || 'Decryption failed');
+                if (progress) {
+                    const width = ((step - 1) / (3)) * 100;
+                    progress.style.width = `${width}%`;
                 }
-            } catch (error) {
-                resultBox.className = 'result-box error show';
-                resultBox.textContent = 'Error: ' + error.message;
-                statusDiv.textContent = 'An error occurred during decryption.';
-            } finally {
-                decryptBtn.disabled = false;
-                decryptBtn.textContent = 'Decrypt Message';
-                decryptBtn.style.animation = '';
-                statusDiv.style.animation = '';
-            }
-        }
 
-        // Add dynamic effects on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate form elements sequentially
+                steps.forEach(s => {
+                    const el = document.getElementById(`step${s}`);
+                    if (!el) return;
+
+                    el.classList.remove('active', 'completed');
+
+                    if (s < step) {
+                        el.classList.add('completed');
+                    } else if (s === step) {
+                        el.classList.add('active');
+                    }
+                });
+            },
+
+            /**
+             * Cache DOM elements
+             */
+            cacheElements() {
+                this.elements = {
+                    systemLogs: document.getElementById('systemLog'),
+                    transactionTableBody: document.getElementById('transactionTableBody'),
+                    noTransactionsMsg: document.getElementById('noTransactions'),
+                    submitBtn: document.getElementById('submitBtn'),
+                    resultBox: document.getElementById('result'),
+                    statusDiv: document.getElementById('status'),
+                    encryptedSection: document.getElementById('encryptedDataSection'),
+                    noEncryptedData: document.getElementById('noEncryptedData'),
+                    // Form inputs
+                    accountNumber: document.getElementById('account_number'),
+                    amount: document.getElementById('amount'),
+                    transactionType: document.getElementById('transaction_type'),
+                    pin: document.getElementById('pin')
+                };
+            },
+
+            /**
+             * Setup event listeners for forms and interactions
+             */
+            setupEventListeners() {
+                // Form submission
+                const form = document.getElementById('transactionForm');
+                if (form) {
+                    form.removeAttribute('onsubmit'); // Remove inline handler
+                    form.addEventListener('submit', (e) => this.handleTransactionSubmit(e));
+                }
+
+                // Decrypt Form
+                const decryptForm = document.getElementById('decryptForm');
+                if (decryptForm) {
+                    decryptForm.removeAttribute('onsubmit');
+                    decryptForm.addEventListener('submit', (e) => this.handleDecryptSubmit(e));
+                }
+
+                // Re-bind toggle input mode (if needed, or kept inline but pointing to global wrapper)
+                // The HTML has onclick="toggleRawInput()", so we need to ensure that function exists globally
+                // or we replace it.
+            },
+
+            /**
+             * Navigation Logic
+             */
+            setupNavigation() {
+                // This is used by the inline onclick handlers in the HTML
+                // We'll keep the glboal function for now, or we could rewrite the HTML to remove onclicks
+            },
+
+            /**
+             * Show initial system logs to simulate boot sequence
+             */
+            setupInitialLogs() {
+                setTimeout(() => this.logSystemEvent('System initialized. Ready for secure communication.', 'success'), 500);
+                setTimeout(() => this.logSystemEvent('Establishing connection to bank server...', 'info'), 800);
+                setTimeout(() => this.logSystemEvent('Connection established. RSA Public Key received.', 'success'), 1500);
+            },
+
+            /**
+             * Toast Notification System
+             */
+            showToast(title, message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                if (!container) return;
+
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+
+                let icon = 'ℹ️';
+                if (type === 'success') icon = '✅';
+                if (type === 'error') icon = '❌';
+                if (type === 'warning') icon = '⚠️';
+
+                toast.innerHTML = `
+                    <div class="toast-icon">${icon}</div>
+                    <div class="toast-content">
+                        <div style="font-weight: 600; margin-bottom: 2px;">${title}</div>
+                        <div>${message}</div>
+                    </div>
+                    <div class="toast-close" onclick="this.parentElement.remove()">×</div>
+                `;
+
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.animation = 'fadeOut 0.5s forwards';
+                    setTimeout(() => toast.remove(), 500);
+                }, 5000);
+            },
+
+            /**
+             * Log event to the "Hacker Console" system log
+             */
+            logSystemEvent(message, type = 'info') {
+                const entry = document.createElement('div');
+                entry.className = `log-entry`;
+
+                const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+                let typeClass = `log-${type}`;
+
+                entry.innerHTML = `<span class="log-time">[${time}]</span><span class="${typeClass}">${message}</span>`;
+
+                const logs = document.getElementById('systemLog');
+                if (logs) {
+                    logs.appendChild(entry);
+                    logs.scrollTop = logs.scrollHeight;
+                }
+            },
+
+            /**
+             * Update the dashboard transaction table
+             */
+            updateTransactionTable() {
+                const tbody = document.getElementById('transactionTableBody');
+                if (!tbody) return;
+
+                tbody.innerHTML = '';
+
+                if (this.transactions.length === 0) {
+                    const msg = document.getElementById('noTransactions');
+                    if (msg) msg.style.display = 'block';
+                    return;
+                }
+
+                const msg = document.getElementById('noTransactions');
+                if (msg) msg.style.display = 'none';
+
+                // Show last 5 transactions
+                this.transactions.slice().reverse().slice(0, 5).forEach(tx => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td style="font-family: monospace;">#${tx.id}</td>
+                        <td>${tx.type}</td>
+                        <td>$${tx.amount}</td>
+                        <td>${tx.time}</td>
+                        <td><span class="status-badge status-success">Encrypted</span></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            },
+
+            /**
+             * Helper to build JSON string from form
+             */
+            buildTransactionData() {
+                // Check if using Raw Data or Form Data
+                // Based on logic: if rawInputSection is visible
+                const rawSection = document.getElementById('rawInputSection');
+
+                if (rawSection && rawSection.style.display !== 'none') {
+                    // Raw Data Mode
+                    return document.getElementById('transaction_data').value;
+                } else {
+                    // Form Data Mode
+                    const acc = document.getElementById('account_number').value;
+                    const amt = document.getElementById('amount').value;
+                    const type = document.getElementById('transaction_type').value;
+                    const pin = document.getElementById('pin') ? document.getElementById('pin').value : '0000';
+                    const info = document.getElementById('additional_info') ? document.getElementById('additional_info').value : '';
+
+                    if (!acc || !amt || !type) return null;
+
+                    // Create object similar to original logic
+                    const timestamp = new Date().toLocaleString('en-US', {
+                        year: 'numeric', month: '2-digit', day: '2-digit',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit'
+                    });
+
+                    let transactionData = `Account: ${acc}, Amount: $${amt}, Type: ${type}, Timestamp: ${timestamp}`;
+                    if (pin) transactionData += `, PIN: ${pin.replace(/./g, '*')}`;
+                    if (info) transactionData += `, Additional Info: ${info}`;
+
+                    return transactionData;
+                }
+            },
+
+            /**
+             * Handle Main Transaction Submission
+             */
+            async handleTransactionSubmit(event) {
+                event.preventDefault();
+                this.updateStep(1);
+
+                const transactionDataStr = this.buildTransactionData();
+
+                const submitBtn = document.getElementById('submitBtn');
+                const resultBox = document.getElementById('result');
+                const statusDiv = document.getElementById('status');
+                const encryptedSection = document.getElementById('encryptedDataSection');
+                const noEncryptedData = document.getElementById('noEncryptedData');
+
+                if (!transactionDataStr) {
+                    this.showToast('Validation Error', 'Please fill in all required fields.', 'error');
+                    resultBox.className = 'result-box error show';
+                    resultBox.textContent = 'Error: Please fill in all required fields.';
+                    this.logSystemEvent('Transaction submission failed: Missing required fields.', 'error');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="loading"></span>Processing...';
+                resultBox.className = 'result-box';
+                resultBox.textContent = '';
+
+                if (encryptedSection) encryptedSection.style.display = 'none';
+                if (noEncryptedData) noEncryptedData.style.display = 'block';
+
+                statusDiv.textContent = 'Initiating secure transaction...';
+                this.logSystemEvent(`Initiating transaction...`, 'info');
+
+                this.toggleNetworkModal(true, 'Initiating secure handshake...');
+
+                try {
+                    await this.delay(800);
+                    this.updateStep(2);
+                    this.updateNetworkProgress(25, 'Generating ephemeral AES-256 keys...');
+                    this.logSystemEvent('Generating ephemeral AES-256 session key...', 'info');
+
+                    await this.delay(800);
+                    this.updateNetworkProgress(50, 'Encrypting payload with AES-CBC...');
+                    this.logSystemEvent('Encrypting transaction data with AES-256-CBC...', 'info');
+
+                    const encryptResponse = await fetch('/encrypt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ transaction_data: transactionDataStr })
+                    });
+
+                    const encryptData = await encryptResponse.json();
+
+                    if (!encryptData.success) throw new Error(encryptData.error || 'Encryption failed');
+
+                    this.logSystemEvent('Encrypting session key with RSA-2048 (Bank Public Key)...', 'info');
+                    await this.delay(400);
+
+                    this.displayEncryptedData(encryptData);
+
+                    this.logSystemEvent('Encrypted package created successfully.', 'success');
+                    this.updateStep(3);
+                    this.updateNetworkProgress(75, 'Transmitting encrypted package...');
+                    this.logSystemEvent('Transmitting encrypted package to Bank Server...', 'warning');
+                    this.showToast('Encryption Complete', 'Data encrypted and ready for transmission.', 'success');
+
+                    statusDiv.textContent = 'Waiting for bank response...';
+
+                    this.addToHistory(transactionDataStr);
+
+                    // Step 2: Decrypt (Bank Side)
+                    const decryptResponse = await fetch('/decrypt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            encrypted_data: encryptData.encrypted_data,
+                            encrypted_session_key: encryptData.encrypted_session_key,
+                            iv: encryptData.iv
+                        })
+                    });
+
+                    const decryptData = await decryptResponse.json();
+
+                    await this.delay(1200);
+                    this.updateNetworkProgress(100, 'Handshake complete. Verifying...');
+
+                    await this.delay(500);
+                    this.toggleNetworkModal(false);
+                    await this.delay(300);
+
+                    this.updateStep(4);
+
+                    if (decryptData.success) {
+                        resultBox.className = 'result-box success show';
+                        resultBox.textContent = decryptData.decrypted_data;
+                        statusDiv.textContent = 'Transaction verified and processed successfully.';
+                        this.logSystemEvent('Bank response received: Transaction Decrypted & Verified.', 'success');
+                        this.showToast('Success', 'Transaction verified by Bank Server.', 'success');
+                    } else {
+                        throw new Error(decryptData.error || 'Decryption failed');
+                    }
+
+                } catch (error) {
+                    this.toggleNetworkModal(false);
+                    resultBox.className = 'result-box error show';
+                    resultBox.textContent = `Error: ${error.message}`;
+                    statusDiv.textContent = 'An error occurred during processing.';
+                    this.logSystemEvent(`Transaction failed: ${error.message}`, 'error');
+                    this.showToast('Transaction Failed', error.message, 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Transaction';
+                    submitBtn.style.animation = ''; // Remove glow
+                    statusDiv.style.animation = ''; // Remove pulse
+                }
+            },
+
+            isValidBase64(str) {
+                const regex = /^[A-Za-z0-9+/]+={0,2}$/;
+                return str.length % 4 === 0 && regex.test(str);
+            },
+
+            toggleNetworkModal(show, initialStatus = '') {
+                const modal = document.getElementById('networkModal');
+                const progressBar = document.getElementById('modalProgress'); // Using ID directly
+                const statusText = document.getElementById('modalStatus');
+                const packet = document.getElementById('packetAnim');
+                const bankNode = document.getElementById('nodeBank');
+
+                if (show) {
+                    modal.style.display = 'flex';
+                    if (initialStatus) statusText.textContent = initialStatus;
+                    if (progressBar) progressBar.style.width = '5%';
+                    if (packet) packet.style.display = 'flex';
+                    if (bankNode) bankNode.classList.remove('active');
+                } else {
+                    if (progressBar) progressBar.style.width = '100%';
+                    if (bankNode) bankNode.classList.add('active');
+
+                    setTimeout(() => {
+                        modal.style.animation = 'fadeOut 0.3s ease-out forwards';
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            modal.style.animation = '';
+                            if (packet) packet.style.display = 'none';
+                        }, 300);
+                    }, 500);
+                }
+            },
+
+            updateNetworkProgress(width, status) {
+                const progressBar = document.getElementById('modalProgress');
+                const statusText = document.getElementById('modalStatus');
+                if (progressBar) progressBar.style.width = `${width}%`;
+                if (status && statusText) statusText.textContent = status;
+            },
+
+            async handleDecryptSubmit(event) {
+                event.preventDefault();
+
+                const decryptBtn = document.getElementById('decryptBtn');
+                const resultBox = document.getElementById('decrypt_result');
+                const statusDiv = document.getElementById('decrypt_status');
+
+                const encryptedData = document.getElementById('decrypt_encrypted_data').value.trim();
+                const encryptedSessionKey = document.getElementById('decrypt_session_key').value.trim();
+                const iv = document.getElementById('decrypt_iv').value.trim();
+
+                if (!encryptedData || !encryptedSessionKey || !iv) {
+                    this.showToast('Validation Error', 'Please fill in all decryption fields.', 'error');
+                    resultBox.className = 'result-box error show';
+                    resultBox.textContent = 'Error: Please fill in all fields.';
+                    return;
+                }
+
+                if (!this.isValidBase64(encryptedData) || !this.isValidBase64(encryptedSessionKey) || !this.isValidBase64(iv)) {
+                    this.showToast('Validation Error', 'Invalid Base64 format detected.', 'error');
+                    resultBox.className = 'result-box error show';
+                    resultBox.textContent = 'Error: Inputs must be valid Base64 strings.';
+                    return;
+                }
+
+                decryptBtn.disabled = true;
+                decryptBtn.innerHTML = '<span class="loading"></span>Decrypting...';
+                resultBox.className = 'result-box';
+                resultBox.textContent = '';
+                statusDiv.textContent = 'Decrypting transaction data...';
+
+                try {
+                    const response = await fetch('/decrypt', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            encrypted_data: encryptedData,
+                            encrypted_session_key: encryptedSessionKey,
+                            iv: iv
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        resultBox.className = 'result-box success show';
+                        resultBox.textContent = data.decrypted_data;
+                        statusDiv.textContent = 'Transaction decrypted successfully.';
+                        this.showToast('Decryption Success', 'Message successfully decrypted.', 'success');
+                    } else {
+                        throw new Error(data.error || 'Decryption failed');
+                    }
+                } catch (error) {
+                    resultBox.className = 'result-box error show';
+                    resultBox.textContent = 'Error: ' + error.message;
+                    statusDiv.textContent = 'An error occurred during decryption.';
+                    this.showToast('Decryption Failed', error.message, 'error');
+                } finally {
+                    decryptBtn.disabled = false;
+                    decryptBtn.textContent = 'Decrypt Message';
+                }
+            },
+
+            /**
+             * Helper to update UI with encrypted data
+             */
+            displayEncryptedData(data) {
+                const encryptedSection = document.getElementById('encryptedDataSection');
+                const noEncryptedData = document.getElementById('noEncryptedData');
+
+                document.getElementById('encrypted_data_display').textContent = data.encrypted_data;
+                document.getElementById('encrypted_key_display').textContent = data.encrypted_session_key;
+                document.getElementById('iv_display').textContent = data.iv;
+
+                document.getElementById('encrypted_data_length').textContent = `(${data.encrypted_data.length} chars)`;
+                document.getElementById('encrypted_key_length').textContent = `(${data.encrypted_session_key.length} chars)`;
+                document.getElementById('iv_length').textContent = `(${data.iv.length} chars)`;
+
+                if (encryptedSection) {
+                    encryptedSection.style.display = 'block';
+                    encryptedSection.style.animation = 'fadeIn 0.5s ease-out';
+                }
+                if (noEncryptedData) noEncryptedData.style.display = 'none';
+            },
+
+            /**
+             * Helper to add transaction to history list
+             */
+            addToHistory(dataStr) {
+                try {
+                    // Try to parse rudimentary key-value pairs from the string we built
+                    // "Account: 123, Amount: $100, ..."
+                    let type = 'Unknown';
+                    let amount = '0.00';
+                    let account = '';
+
+                    const typeMatch = dataStr.match(/Type: ([^,]+)/);
+                    if (typeMatch) type = typeMatch[1];
+
+                    const amtMatch = dataStr.match(/Amount: \$([^,]+)/);
+                    if (amtMatch) amount = amtMatch[1];
+
+                    this.transactions.push({
+                        id: Math.floor(Math.random() * 10000) + 1000,
+                        type: type,
+                        amount: amount,
+                        time: new Date().toLocaleTimeString(),
+                        status: 'Encrypted'
+                    });
+                    this.updateTransactionTable();
+                } catch (e) {
+                    console.error('Error adding to history', e);
+                }
+            },
+
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            },
+
+            copyToClipboard(text, btnElement) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = btnElement.innerHTML;
+                    btnElement.innerHTML = '✓ Copied!';
+                    btnElement.style.background = 'linear-gradient(135deg, var(--accent-success), #059669)';
+                    this.showToast('Copied', 'Content copied to clipboard', 'success');
+                    this.logSystemEvent('Content copied to clipboard.', 'info');
+
+                    setTimeout(() => {
+                        btnElement.innerHTML = originalText;
+                        btnElement.style.background = '';
+                    }, 2000);
+                }).catch(err => {
+                    this.showToast('Error', 'Failed to copy to clipboard', 'error');
+                });
+            },
+
+            toggleInputMode() {
+                const formData = document.querySelectorAll('.form-group:not(.full-width), .form-row');
+                const rawSection = document.getElementById('rawInputSection');
+                const toggleText = document.getElementById('toggleText');
+
+                // If raw section is currently hidden
+                if (rawSection.style.display === 'none') {
+                    // Switch to Raw
+                    rawSection.style.display = 'block';
+                    rawSection.style.animation = 'fadeIn 0.4s ease-out';
+
+                    formData.forEach(field => {
+                        field.style.display = 'none';
+                    });
+
+                    toggleText.textContent = 'Use structured form instead';
+                    this.showToast('Security Warning', 'Raw input mode enabled. Ensure data is sanitized.', 'warning');
+
+                    // Auto-fill raw if empty
+                    if (!document.getElementById('transaction_data').value) {
+                        const acc = document.getElementById('account_number').value;
+                        const amt = document.getElementById('amount').value;
+                        const type = document.getElementById('transaction_type').value;
+                        if (acc && amt && type) {
+                            const timestamp = new Date().toLocaleString('en-US');
+                            document.getElementById('transaction_data').value =
+                                `Account: ${acc}, Amount: $${amt}, Type: ${type}, Timestamp: ${timestamp}`;
+                        }
+                    }
+
+                } else {
+                    // Switch to Form
+                    rawSection.style.display = 'none';
+
+                    formData.forEach(field => {
+                        field.style.display = ''; // Reset to default (block/grid)
+                        field.style.animation = 'fadeIn 0.4s ease-out';
+                    });
+
+                    toggleText.textContent = 'Use raw text input instead';
+                }
+            },
+
+            togglePinVisibility() {
+                const pinInput = document.getElementById('pin');
+                const btn = pinInput.nextElementSibling;
+
+                if (pinInput.type === 'password') {
+                    pinInput.type = 'text';
+                    btn.innerHTML = '🔒';
+                } else {
+                    pinInput.type = 'password';
+                    btn.innerHTML = '👁️';
+                }
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate form elements (from old script)
             const formElements = document.querySelectorAll('.form-group, .form-row');
             formElements.forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.1}s`;
                 el.style.animation = 'fadeIn 0.6s ease-out forwards';
             });
 
-            // Add ripple effect to inputs on focus
-            const inputs = document.querySelectorAll('input, textarea, select');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function(e) {
-                    const ripple = document.createElement('div');
-                    ripple.style.cssText = `
-                        position: absolute;
-                        border-radius: 50%;
-                        background: rgba(99, 102, 241, 0.3);
-                        width: 20px;
-                        height: 20px;
-                        margin-top: -10px;
-                        margin-left: -10px;
-                        pointer-events: none;
-                        animation: ripple 0.6s ease-out;
-                    `;
-                    const rect = e.target.getBoundingClientRect();
-                    ripple.style.left = (e.clientX - rect.left) + 'px';
-                    ripple.style.top = (e.clientY - rect.top) + 'px';
-                    e.target.style.position = 'relative';
-                    e.target.appendChild(ripple);
-                    setTimeout(() => ripple.remove(), 600);
-                });
-            });
+            ATMApp.init();
+
+            // Global helpers for inline HTML handlers
+            window.showPage = (pageId) => {
+                // Mimic old behavior
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+                const page = document.getElementById(pageId);
+                if (page) page.classList.add('active');
+
+                if (event && event.target) {
+                    const navItem = event.target.closest('.nav-item');
+                    if (navItem) navItem.classList.add('active');
+                }
+            };
+
+            window.handleSubmit = (e) => {
+                // Forward to ATMApp
+                ATMApp.handleTransactionSubmit(e);
+            };
+
+            window.handleDecryptSubmit = (e) => {
+                ATMApp.handleDecryptSubmit(e);
+            }
+
+            window.copyToClipboard = (text) => {
+                const e = window.event;
+                const btn = e ? e.target.closest('button') : null;
+                if (btn) ATMApp.copyToClipboard(text, btn);
+            };
+
+            window.toggleRawInput = () => {
+                ATMApp.toggleInputMode();
+            }
+
+            window.togglePinVisibility = () => {
+                ATMApp.togglePinVisibility();
+            }
         });
-
-        // Add CSS for ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        function toggleRawInput() {
-            const rawSection = document.getElementById('rawInputSection');
-            const toggleText = document.getElementById('toggleText');
-            const formFields = document.querySelectorAll('.form-group:not(.full-width), .form-row');
-            
-            if (rawSection.style.display === 'none') {
-                rawSection.style.display = 'block';
-                rawSection.style.animation = 'fadeIn 0.4s ease-out';
-                formFields.forEach(field => {
-                    field.style.animation = 'fadeOut 0.3s ease-out';
-                    setTimeout(() => field.style.display = 'none', 300);
-                });
-                toggleText.textContent = 'Use structured form instead';
-            } else {
-                rawSection.style.animation = 'fadeOut 0.3s ease-out';
-                setTimeout(() => rawSection.style.display = 'none', 300);
-                formFields.forEach(field => {
-                    field.style.display = '';
-                    field.style.animation = 'fadeIn 0.4s ease-out';
-                });
-                toggleText.textContent = 'Use raw text input instead';
-            }
-        }
-
-        // Add fadeOut animation
-        const fadeOutStyle = document.createElement('style');
-        fadeOutStyle.textContent = `
-            @keyframes fadeOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-            }
-        `;
-        document.head.appendChild(fadeOutStyle);
-
-        function buildTransactionData() {
-            const rawInput = document.getElementById('transaction_data').value.trim();
-            
-            // If raw input is visible and has content, use it
-            if (document.getElementById('rawInputSection').style.display !== 'none' && rawInput) {
-                return rawInput;
-            }
-            
-            // Otherwise, build from form fields
-            const accountNumber = document.getElementById('account_number').value.trim();
-            const amount = document.getElementById('amount').value.trim();
-            const transactionType = document.getElementById('transaction_type').value;
-            const pin = document.getElementById('pin').value.trim();
-            const additionalInfo = document.getElementById('additional_info').value.trim();
-            
-            if (!accountNumber || !amount || !transactionType) {
-                return null;
-            }
-            
-            const timestamp = new Date().toLocaleString('en-US', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            
-            let transactionData = `Account: ${accountNumber}, Amount: $${amount}, Type: ${transactionType}, Timestamp: ${timestamp}`;
-            
-            if (pin) {
-                transactionData += `, PIN: ${pin.replace(/./g, '*')}`;
-            }
-            
-            if (additionalInfo) {
-                transactionData += `, Additional Info: ${additionalInfo}`;
-            }
-            
-            return transactionData;
-        }
-
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            const transactionData = buildTransactionData();
-            const submitBtn = document.getElementById('submitBtn');
-            const resultBox = document.getElementById('result');
-            const statusDiv = document.getElementById('status');
-            
-            if (!transactionData) {
-                resultBox.className = 'result-box error show';
-                resultBox.textContent = 'Error: Please fill in all required fields (Account Number, Amount, and Transaction Type).';
-                return;
-            }
-
-            // Disable button and show loading with animation
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading"></span>Processing...';
-            submitBtn.style.animation = 'glow 1.5s ease-in-out infinite';
-            resultBox.className = 'result-box';
-            resultBox.textContent = '';
-            
-            // Hide encrypted data section initially
-            const encryptedSection = document.getElementById('encryptedDataSection');
-            const noEncryptedData = document.getElementById('noEncryptedData');
-            if (encryptedSection) {
-                encryptedSection.style.display = 'none';
-            }
-            if (noEncryptedData) {
-                noEncryptedData.style.display = 'block';
-            }
-            
-            statusDiv.textContent = 'Encrypting transaction data...';
-            statusDiv.style.animation = 'pulse 1.5s ease-in-out infinite';
-
-            try {
-                // Step 1: Encrypt the transaction data
-                const encryptResponse = await fetch('/encrypt', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ transaction_data: transactionData })
-                });
-
-                const encryptData = await encryptResponse.json();
-
-                if (!encryptData.success) {
-                    throw new Error(encryptData.error || 'Encryption failed');
-                }
-
-                // Display encrypted data
-                const encryptedSection = document.getElementById('encryptedDataSection');
-                const noEncryptedData = document.getElementById('noEncryptedData');
-                const encryptedDataDisplay = document.getElementById('encrypted_data_display');
-                const encryptedKeyDisplay = document.getElementById('encrypted_key_display');
-                const ivDisplay = document.getElementById('iv_display');
-                const encryptedDataLength = document.getElementById('encrypted_data_length');
-                const encryptedKeyLength = document.getElementById('encrypted_key_length');
-                const ivLength = document.getElementById('iv_length');
-
-                encryptedDataDisplay.textContent = encryptData.encrypted_data;
-                encryptedKeyDisplay.textContent = encryptData.encrypted_session_key;
-                ivDisplay.textContent = encryptData.iv;
-
-                // Display data lengths
-                encryptedDataLength.textContent = `(${encryptData.encrypted_data.length} characters)`;
-                encryptedKeyLength.textContent = `(${encryptData.encrypted_session_key.length} characters)`;
-                ivLength.textContent = `(${encryptData.iv.length} characters)`;
-
-                encryptedSection.style.display = 'block';
-                noEncryptedData.style.display = 'none';
-                encryptedSection.style.animation = 'fadeIn 0.5s ease-out';
-
-                statusDiv.textContent = 'Decrypting transaction data...';
-
-                // Step 2: Decrypt the transaction data (Bank side)
-                const decryptResponse = await fetch('/decrypt', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        encrypted_data: encryptData.encrypted_data,
-                        encrypted_session_key: encryptData.encrypted_session_key,
-                        iv: encryptData.iv
-                    })
-                });
-
-                const decryptData = await decryptResponse.json();
-
-                if (decryptData.success) {
-                    resultBox.className = 'result-box success show';
-                    resultBox.textContent = decryptData.decrypted_data;
-                    statusDiv.textContent = 'Transaction decrypted successfully.';
-                } else {
-                    throw new Error(decryptData.error || 'Decryption failed');
-                }
-
-            } catch (error) {
-                resultBox.className = 'result-box error show';
-                resultBox.textContent = 'Error: ' + error.message;
-                statusDiv.textContent = 'An error occurred during processing.';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Transaction';
-                submitBtn.style.animation = '';
-                statusDiv.style.animation = '';
-            }
-        }
     </script>
 </body>
+
 </html>
