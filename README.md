@@ -1,125 +1,169 @@
-cat << 'EOF' > README.md
-# ATM–Bank Secure Communication Simulator 🔐
+cat > README.md << 'EOF'
+# ATM–Bank Secure Communication System 🔐
 
-A Flask-based web application that demonstrates secure communication between an ATM and a Bank server using **Hybrid Encryption (AES-256 + RSA-2048)**.
+A distributed security simulation demonstrating how real banking networks protect ATM transactions using **Hybrid Encryption, Digital Signatures, and Secure Service Communication**.
 
-The project simulates how sensitive financial transaction data can be securely transmitted over an untrusted network.
+This project models a real-world banking architecture where an ATM client communicates with a Bank server over an untrusted network while guaranteeing:
 
----
-
-## 📌 Overview
-
-In real banking systems, ATMs never send transaction data in plain text.
-Instead, they use a hybrid encryption model:
-
-1. The ATM encrypts transaction data using **AES-256-CBC**
-2. The AES session key is encrypted using the **Bank's RSA-2048 public key**
-3. The Bank decrypts the AES key using its private key
-4. The Bank decrypts the original transaction securely
-
-This project demonstrates that complete workflow visually in a web interface.
+* Confidentiality
+* Integrity
+* Authentication
+* Tamper detection
+* Fraud monitoring
 
 ---
 
-## 🧠 Security Concepts Demonstrated
+## 🧠 System Overview
 
-* Symmetric Encryption (AES-256-CBC)
-* Asymmetric Encryption (RSA-2048)
-* Hybrid Encryption Scheme
-* Secure Key Exchange
-* Initialization Vector (IV) handling
-* Base64 encoding for safe transmission
-* Secure session storage in Flask
+The project evolved from a single-process demo into a **two-service secure distributed system**:
 
----
+| Component   | Role                                    | Port |
+| ----------- | --------------------------------------- | ---- |
+| ATM Client  | Encrypts, signs, and sends transactions | 5002 |
+| Bank Server | Verifies, decrypts, stores, audits      | 5003 |
 
-## 🏗️ Tech Stack
-
-* Python
-* Flask
-* Cryptography Library (PyCA)
-* HTML / CSS / JavaScript
+Communication happens over HTTP while maintaining real cryptographic guarantees.
 
 ---
 
-## 🔄 Application Flow
+## 🏗️ Architecture
 
-### ATM Side
+### ATM Client
+* Generates its own RSA key pair
+* Fetches Bank public key
+* Encrypts transaction using AES-256
+* Encrypts AES key using RSA-2048
+* Digitally signs the request
+* Sends secure payload to Bank server
 
-1. User enters transaction details
-2. Data encrypted using AES-256-CBC
-3. AES session key encrypted using Bank RSA public key
-4. Encrypted package sent to bank
-
-### Bank Side
-
-1. Bank decrypts AES session key using private key
-2. Bank decrypts transaction data using AES
-3. Original transaction is recovered securely
+### Bank Server
+* Stores persistent RSA private key
+* Verifies ATM signature (authenticity)
+* Decrypts AES session key
+* Decrypts transaction payload
+* Stores transaction in database
+* Logs security events & fraud alerts
+* Sends signed confirmation response
 
 ---
 
-## 📁 Project Structure
+## 🔐 Security Features
 
-\`\`\`
+### Hybrid Encryption
+* AES-256-CBC → encrypts transaction data
+* RSA-2048 → encrypts session key
+
+### Digital Signatures
+ATM signs every transaction → Bank verifies integrity
+
+### Tampering Detection
+Any modification to payload or signature results in rejection
+
+### Fraud Detection
+Transactions > $10,000 automatically flagged
+
+### Audit Logging
+All events recorded in SQLite security logs
+
+---
+
+## 🗂️ Project Structure
+
 ATM_Encryption_Project/
-│── app.py
-│── crypto_utils.py
-│── templates/
-│     └── index.html
-│── requirements.txt
-│── README.md
-\`\`\`
+│
+├── atm_app.py
+├── bank_server.py
+├── crypto_utils.py
+│
+├── keys/
+│   ├── atm_private.pem
+│   └── bank_private.pem
+│
+├── database/
+│   └── bank.db
+│
+├── templates/
+│   └── index.html
+│
+└── README.md
 
 ---
 
-## ▶️ How to Run Locally
+## ▶️ How To Run
 
-### 1. Clone Repository
-\`\`\`
-git clone https://github.com/YOUR_USERNAME/atm-bank-secure-communication.git
-cd atm-bank-secure-communication
-\`\`\`
-
-### 2. Create Virtual Environment
-\`\`\`
+### 1. Create Environment
 python3 -m venv venv
 source venv/bin/activate
-\`\`\`
-
-### 3. Install Dependencies
-\`\`\`
 pip install -r requirements.txt
-\`\`\`
 
-### 4. Run Application
-\`\`\`
-python app.py
-\`\`\`
+### 2. Start Bank Server
+venv/bin/python bank_server.py
+Runs on http://127.0.0.1:5003
 
+### 3. Start ATM Client
+venv/bin/python atm_app.py
+Runs on http://127.0.0.1:5002
+
+### 4. Use the System
 Open browser:
 http://127.0.0.1:5002
 
+Submit a transaction →
+ATM signs & encrypts →
+Bank verifies & decrypts →
+Response returned securely.
+
 ---
 
-## 🎯 Purpose
-This project demonstrates secure transaction handling used in banking systems and payment gateways.
+## 📊 Observability
+
+Transactions:
+database/bank.db → transactions table
+
+Security Logs:
+database/bank.db → security_logs table
+
+Includes:
+Authentication failures
+Fraud alerts
+Key generation events
+Tampering detection
 
 ---
 
-## 📚 Learning Outcomes
-* Implemented hybrid encryption
-* Understood secure key exchange
-* Built client-server simulation
-* Applied cryptography in a real application
+## 🧪 Troubleshooting
+
+Port already in use:
+lsof -i :5003
+kill <PID>
+
+Reset Database:
+rm database/bank.db
+
+Regenerate Keys:
+rm -rf keys/
+
+Stop Servers:
+pkill -f "python.*ATM_Encryption_Project"
+
+---
+
+## 🎯 Learning Objectives
+Hybrid Encryption Systems  
+Digital Signatures & Authentication  
+Secure Key Exchange  
+Distributed Service Communication  
+Fraud Monitoring Systems  
+Security Audit Logging  
 
 ---
 
 ## ⚠️ Disclaimer
-This project is for educational purposes only.
+Educational simulation only — not production banking software.
 
 ---
 
 ## 👨‍💻 Author
 Aashutosh Pandey
+
 EOF
